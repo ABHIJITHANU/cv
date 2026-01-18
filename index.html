@@ -185,4 +185,29 @@
          <p class="copyright">© 2025 Abhijith S R @ Personal Website.</p>
       </div>
    </body>
+  <script>
+(function () {
+    const payload = {
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        platform: navigator.platform,
+        screen: {
+            width: screen.width,
+            height: screen.height
+        },
+        referrer: document.referrer,
+        page: window.location.href,
+        timestamp: new Date().toISOString()
+    };
+
+    fetch('/log-visit.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    }).catch(err => console.error('Logging failed', err));
+})();
+</script>
+ 
 </html>
