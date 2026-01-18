@@ -12,7 +12,7 @@ $entry = [
     'ip_address'  => $_SERVER['REMOTE_ADDR'],
     'user_agent'  => $_SERVER['HTTP_USER_AGENT'] ?? null,
     'visited_at'  => date('Y-m-d H:i:s'),
-    'unique_id'   => $_SERVER['UNIQUE_ID'],
+    'unique_id'   => $_SERVER['UNIQUE_ID'] ?? null,
     'details'     => $data,
 ];
 
