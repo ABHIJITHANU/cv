@@ -1,4 +1,5 @@
 <?php
+
 header('Content-Type: application/json');
 
 $logFile = __DIR__ . '/abiaishu_visits.json';
@@ -8,10 +9,11 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 // Add server-side details
 $entry = [
-    'ip_address' => $_SERVER['REMOTE_ADDR'],
-    'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? null,
-    'visited_at' => date('Y-m-d H:i:s'),
-    'details' => $data
+    'ip_address'  => $_SERVER['REMOTE_ADDR'],
+    'user_agent'  => $_SERVER['HTTP_USER_AGENT'] ?? null,
+    'visited_at'  => date('Y-m-d H:i:s'),
+    'unique_id'   => $_SERVER['UNIQUE_ID'],
+    'details'     => $data,
 ];
 
 // Load existing logs
@@ -30,4 +32,5 @@ file_put_contents(
 );
 
 echo json_encode(['status' => 'success']);
+
 ?>
