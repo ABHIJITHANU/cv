@@ -7,20 +7,21 @@ $logFile = __DIR__ . '/abiaishu_visits.json';
 // Get raw JSON input
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Add server-side details
+// Load existing logs
+$logs = [];
+if (file_exists($logFile)) {
+    $logs = json_decode(file_get_contents($logFile), true) ?? [];
+}
+
+// Add server-side details with serial number
 $entry = [
+    'serial_number' => count($logs) + 1,
     'ip_address'  => $_SERVER['REMOTE_ADDR'],
     'user_agent'  => $_SERVER['HTTP_USER_AGENT'] ?? null,
     'visited_at'  => date('Y-m-d H:i:s'),
     'unique_id'   => $_SERVER['UNIQUE_ID'] ?? null,
     'details'     => $data,
 ];
-
-// Load existing logs
-$logs = [];
-if (file_exists($logFile)) {
-    $logs = json_decode(file_get_contents($logFile), true) ?? [];
-}
 
 // Append new entry
 $logs[] = $entry;
